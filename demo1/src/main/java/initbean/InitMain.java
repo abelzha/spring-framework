@@ -15,4 +15,5 @@ public class InitMain {
 		System.out.println(person.getName());
 		context.close();
 	}
+
 }
