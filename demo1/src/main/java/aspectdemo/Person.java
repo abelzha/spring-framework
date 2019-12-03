@@ -5,19 +5,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Person implements InitializingBean, DisposableBean {
+public class Person{
 	private String name;
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		System.out.println("afterPropertiesSet----->");
-		this.name = "kobe";
-	}
-
-	@Override
-	public void destroy() throws Exception {
-		System.out.println("-----------destroy-------->");
-	}
-
 	public String getPersonName(){
 		System.out.println("-------getPersonName-------:"+ name);
 		return name;
