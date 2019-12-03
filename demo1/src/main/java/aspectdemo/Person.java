@@ -5,8 +5,18 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonService implements InitializingBean, DisposableBean {
+public class Person implements InitializingBean, DisposableBean {
 	private String name;
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("afterPropertiesSet----->");
+		this.name = "kobe";
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("-----------destroy-------->");
+	}
 
 	public String getPersonName(){
 		System.out.println("-------getPersonName-------:"+ name);
@@ -17,25 +27,5 @@ public class PersonService implements InitializingBean, DisposableBean {
 		System.out.println("--------setPersonName------:"+name);
 		this.name = name;
 		return true;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		System.out.println("afterPropertiesSet----->");
-		this.name = "kobe";
-	}
-
-	@Override
-	public void destroy() throws Exception {
-		System.out.println("destroy-------->");
 	}
 }

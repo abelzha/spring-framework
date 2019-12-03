@@ -11,9 +11,4 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @ComponentScan("aspectdemo")
 public class AppConfigAspect {
 
-	@Bean(value = "", initMethod = "", destroyMethod = "")
-	public String getName(){
-		return "abel";
-	}
-
 }
