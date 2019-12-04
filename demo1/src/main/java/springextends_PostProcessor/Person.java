@@ -1,4 +1,4 @@
-package springextends;
+package springextends_PostProcessor;
 
 public class Person {
 	private String name;

@@ -1,4 +1,4 @@
-package springextends;
+package springextends_PostProcessor;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
