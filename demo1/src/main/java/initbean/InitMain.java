@@ -1,7 +1,5 @@
 package initbean;
 
-import aspectdemo.AppConfigAspect;
-import aspectdemo.PersonService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Arrays;
