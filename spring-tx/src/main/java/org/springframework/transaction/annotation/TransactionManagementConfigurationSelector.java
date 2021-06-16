@@ -42,6 +42,7 @@ public class TransactionManagementConfigurationSelector extends AdviceModeImport
 	 * {@code AspectJ(Jta)TransactionManagementConfiguration} for {@code PROXY}
 	 * and {@code ASPECTJ} values of {@link EnableTransactionManagement#mode()},
 	 * respectively.
+	 * adviceMode 默认PROXY， 向容器中导入两个组件
 	 */
 	@Override
 	protected String[] selectImports(AdviceMode adviceMode) {

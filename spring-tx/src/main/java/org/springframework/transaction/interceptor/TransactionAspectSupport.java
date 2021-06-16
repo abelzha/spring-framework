@@ -317,6 +317,22 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	 * @return the return value of the method, if any
 	 * @throws Throwable propagated from the target invocation
 	 */
+
+
+	/**
+	 *
+	 * 在目标方法执行的时候执行该方法;
+	 * 			执行拦截器链:
+	 * 			事务拦截器:
+	 * 				1)、先获取事务相关的属性
+	 * 				2)、再获取PlatformTransactionManager，
+	 * 				如果事先没有添加指定任何transactionManager最终会从容器中按照类型获取一个PlatformTransactionManager;
+	 * 				3)、执行目标方法
+	 * 					如果异常，获取到事务管理器，利用事务管理回滚操作;
+	 * 					如果正常，利用事务管理器，提交事务
+	 *
+	 */
+
 	@Nullable
 	protected Object invokeWithinTransaction(Method method, @Nullable Class<?> targetClass,
 			final InvocationCallback invocation) throws Throwable {
@@ -330,8 +346,13 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 		// If the transaction attribute is null, the method is non-transactional.
 		TransactionAttributeSource tas = getTransactionAttributeSource();
+		// 获取事务属性
 		final TransactionAttribute txAttr = (tas != null ? tas.getTransactionAttribute(method, targetClass) : null);
+
+		// 获取事务管理器
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
+
+
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
 
 		if (txAttr == null || !(tm instanceof CallbackPreferringPlatformTransactionManager)) {
@@ -457,6 +478,8 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 				defaultTransactionManager = asPlatformTransactionManager(
 						this.transactionManagerCache.get(DEFAULT_TRANSACTION_MANAGER_KEY));
 				if (defaultTransactionManager == null) {
+
+					//如果事先没有添加指定任何transactionManager最终会从容器中按照类型获取一个PlatformTransactionManager;
 					defaultTransactionManager = this.beanFactory.getBean(PlatformTransactionManager.class);
 					this.transactionManagerCache.putIfAbsent(
 							DEFAULT_TRANSACTION_MANAGER_KEY, defaultTransactionManager);
@@ -608,6 +631,8 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			if (logger.isTraceEnabled()) {
 				logger.trace("Completing transaction for [" + txInfo.getJoinpointIdentification() + "]");
 			}
+
+			//如果正常，利用事务管理器，提交事务
 			txInfo.getTransactionManager().commit(txInfo.getTransactionStatus());
 		}
 	}
@@ -626,6 +651,9 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			}
 			if (txInfo.transactionAttribute != null && txInfo.transactionAttribute.rollbackOn(ex)) {
 				try {
+
+
+					// 如果异常，获取到事务管理器，利用事务管理回滚操作
 					txInfo.getTransactionManager().rollback(txInfo.getTransactionStatus());
 				}
 				catch (TransactionSystemException ex2) {

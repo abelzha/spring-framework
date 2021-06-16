@@ -291,6 +291,9 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * identified as one to proxy by the subclass.
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
+
+
+	//利用后置处理器机制在对象创建以后(实例化以后)，包装对象，返回一个代理对象(增强器)，代理对象执行方法利用拦截器链进行调用
 	@Override
 	public Object postProcessAfterInitialization(@Nullable Object bean, String beanName) {
 		if (bean != null) {

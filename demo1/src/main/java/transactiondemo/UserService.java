@@ -18,8 +18,9 @@ public class UserService {
 	UserDao userDao;
 
 	@Transactional
-	public void insertUser(){
+	public void insertUser() {
 		userDao.insertUser();
-		int i= 10/0;
+		int j=0;
+		int i = 10 / j;
 	}
 }
