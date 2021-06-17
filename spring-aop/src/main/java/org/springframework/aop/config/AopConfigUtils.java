@@ -72,7 +72,7 @@ public abstract class AopConfigUtils {
 	@Nullable
 	public static BeanDefinition registerAutoProxyCreatorIfNecessary(
 			BeanDefinitionRegistry registry, @Nullable Object source) {
-
+		// 通过BeanDefinitionRegistry注册器显示注册InfrastructureAdvisorAutoProxyCreator.class
 		return registerOrEscalateApcAsRequired(InfrastructureAdvisorAutoProxyCreator.class, registry, source);
 	}
 
@@ -136,6 +136,7 @@ public abstract class AopConfigUtils {
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);
 		beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+		// 注册beanName： "org.springframework.aop.config.internalAutoProxyCreator"
 		registry.registerBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME, beanDefinition);
 		return beanDefinition;
 	}

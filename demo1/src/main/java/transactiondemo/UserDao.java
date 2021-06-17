@@ -17,8 +17,13 @@ public class UserDao {
 
 	public void insertUser(){
 		String sql = "INSERT INTO abel_demo.test11 (username,password,phone,email) VALUES \n" +
-				"('client','$2a$10$5PEF2ekqYq0iu7VBYiH8BON434.nTe9doHD/O1lebhyhG8ywLyE9W','15888888888','lee@gmail.com')";
+				"('client1','$2a$10$5PEF2ekqYq0iu7VBYiH8BON434.nTe9doHD/O1lebhyhG8ywLyE9W','15888888888','lee@gmail.com')";
 		jdbcTemplate.update(sql);
 	}
 
+    public void insertUser2() {
+		String sql = "INSERT INTO abel_demo.test11 (username,password,phone,email) VALUES \n" +
+				"('client2','$2a$10$5PEF2ekqYq0iu7VBYiH8BON434.nTe9doHD/O1lebhyhG8ywLyE9W','15888888888','lee@gmail.com')";
+		jdbcTemplate.update(sql);
+    }
 }

@@ -80,6 +80,9 @@ public class ProxyTransactionManagementConfiguration extends AbstractTransaction
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public TransactionAttributeSource transactionAttributeSource() {
+
+
+		// 解析类的事务属性配置
 		return new AnnotationTransactionAttributeSource();
 	}
 
@@ -89,13 +92,10 @@ public class ProxyTransactionManagementConfiguration extends AbstractTransaction
 			TransactionAttributeSource transactionAttributeSource) {
 		TransactionInterceptor interceptor = new TransactionInterceptor();
 
-
 		/**
 		 * TransactionInterceptor;保存了事务属性信息，事务管理器;
-		 *
 		 * TransactionInterceptor看类图， 发现它是一个 MethodInterceptor;
 		 */
-
 		interceptor.setTransactionAttributeSource(transactionAttributeSource);
 		if (this.txManager != null) {
 			interceptor.setTransactionManager(this.txManager);

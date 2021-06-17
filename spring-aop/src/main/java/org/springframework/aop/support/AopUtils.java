@@ -286,6 +286,8 @@ public abstract class AopUtils {
 		}
 		else if (advisor instanceof PointcutAdvisor) {
 			PointcutAdvisor pca = (PointcutAdvisor) advisor;
+
+			// 具体方法
 			return canApply(pca.getPointcut(), targetClass, hasIntroductions);
 		}
 		else {
@@ -308,6 +310,7 @@ public abstract class AopUtils {
 		}
 		List<Advisor> eligibleAdvisors = new ArrayList<>();
 		for (Advisor candidate : candidateAdvisors) {
+			//首先处理IntroductionAdvisor 增强器
 			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {
 				eligibleAdvisors.add(candidate);
 			}
@@ -318,6 +321,7 @@ public abstract class AopUtils {
 				// already processed
 				continue;
 			}
+			//处理普通bean的增强器
 			if (canApply(candidate, clazz, hasIntroductions)) {
 				eligibleAdvisors.add(candidate);
 			}
